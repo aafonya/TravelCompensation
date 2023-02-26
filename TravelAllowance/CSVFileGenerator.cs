@@ -22,11 +22,23 @@
             return false;
          }
 
-         var fileName = "TravelCompensationOverView_" + overviews.First().Month.ToString() + "_Calculated_" + nodaClock.GetCurrentInstant().ToDateTimeUtc().ToFileTimeUtc() + ".csv";
+         var convertedOverviews = new List<TravelCompensationResultForCSV>();
+         foreach (var overview
+                  in overviews)
+         {
+            convertedOverviews.Add(new TravelCompensationResultForCSV(
+               overview.UserName,
+               overview.Month.ToString(),
+               overview.TravelAttributes,
+               overview.WorkedDaysNumber,
+               overview.Compensation));
+         }
+
+         var fileName = "TravelCompensationOverView_" + convertedOverviews.First().Month.ToString() + "_Calculated_" + nodaClock.GetCurrentInstant().ToDateTimeUtc().ToFileTimeUtc() + ".csv";
          using (var writer = new StreamWriter(Path.Combine(targetDirectory, fileName)))
          using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
          {
-            csv.WriteRecords(overviews);
+            csv.WriteRecords(convertedOverviews);
          }
 
          return true;
