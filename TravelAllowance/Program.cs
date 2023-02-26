@@ -23,4 +23,5 @@ var nodaClock = SystemClock.Instance;
 var service = new TravelCompensationService(dbHandler, restClient, calculator);
 var overView = await service.GetOverViewForUserOfMonth("userName", new YearMonth(2023, 1));
 
+
 csvGenerator.GenerateCompensationOverviewCSV(new List<TravelCompensationResult>(){ overView}, nodaClock, @"D:\\");

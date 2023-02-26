@@ -1,8 +1,5 @@
 ﻿namespace ExampleAPIClient.Client
 {
-   using System.Net.Http.Headers;
-   using System.Text.Json;
-
    using Newtonsoft.Json;
 
    using TravelAllowance.Model;
@@ -29,11 +26,8 @@
          //TODO cancellation token source in case user exits application?
          
           var json =  await client.GetStringAsync(Uri);
-
-         var ssssss = JsonConvert.DeserializeObject<List<TravelCompensationRule>>(json);
-         //var repositories =
-         //   await JsonSerializer.DeserializeAsync<List<TravelCompensationRule>>(stream);
-         return ssssss ?? new();
+         var rules = JsonConvert.DeserializeObject<List<TravelCompensationRule>>(json);
+         return rules ?? new();
       }
 }
 }
