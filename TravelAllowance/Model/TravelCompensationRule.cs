@@ -2,24 +2,6 @@
 {
    using System.Runtime.Serialization;
 
-   using System.Text.Json.Serialization;
-
-   //public record class TravelCompensationRule(
-   //   [property: JsonPropertyName("id")] int Id,
-   //   [property: JsonPropertyName("name")] string Name,
-   //   [property: JsonPropertyName("base_compensation_per_km")] double BaseCompensationPerKm,
-   //   [property: JsonPropertyName("exceptions")] List<TravelCompensationRuleException> RuleExceptions
-   //   )
-   //{
-   //}
-
-   //public record class TravelCompensationRuleException(
-   //   [property: JsonPropertyName("min_km")] int MinKm,
-   //   [property: JsonPropertyName("max_km")] int MaxKm,
-   //   [property: JsonPropertyName("factor")] int Factor)
-   //{
-   //}
-
    [DataContract]
    public class TravelCompensationRule
    {

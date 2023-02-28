@@ -2,9 +2,9 @@
 {
    using NodaTime;
 
-   public record TravelCompensationResult(string UserName, YearMonth Month, UserTravelAttributes TravelAttributes, int WorkedDaysNumber,
+   public record TravelCompensationResult(string UserName, YearMonth Month, TravelAttributesRecord TravelAttributes, int WorkedDaysNumber,
       double Compensation);
 
-   public record TravelCompensationResultForCSV(string UserName, string Month, UserTravelAttributes TravelAttributes, int WorkedDaysNumber,
+   public record TravelCompensationResultForCSV(string UserName, string Month, TravelAttributesRecord TravelAttributes, int WorkedDaysNumber,
       double Compensation);
 }
