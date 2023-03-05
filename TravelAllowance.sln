@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompensationCore", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompensationWPF", "TravelAllowanceOverview\TravelCompensationWPF.csproj", "{375A820D-9819-4B2D-AE1D-F4A9E5EC910A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelCompensationUI", "TravelCompensationUI\TravelCompensationUI.csproj", "{D505DA19-671F-4802-A685-76F929406046}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelCompensationUI", "TravelCompensationUI\TravelCompensationUI.csproj", "{D505DA19-671F-4802-A685-76F929406046}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

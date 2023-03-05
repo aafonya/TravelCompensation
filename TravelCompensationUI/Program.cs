@@ -2,6 +2,7 @@ using ExampleAPIClient.Client;
 using NodaTime;
 using System.IO.Abstractions;
 using TravelAllowance;
+using Syncfusion.Blazor;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,10 +14,13 @@ builder.Services.AddScoped<ICSVFileGenerator, CSVFileGenerator>();
 builder.Services.AddSingleton<IClock>(SystemClock.Instance);
 builder.Services.AddScoped<ITravelCompensationService, TravelCompensationService>();
 
+builder.Services.AddSyncfusionBlazor();
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

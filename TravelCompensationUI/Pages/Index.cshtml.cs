@@ -19,5 +19,11 @@ namespace TravelCompensationUI.Pages
          var employeeData =  await compensationService.GetAllEmployeeData();
          Employees = employeeData.AsQueryable();
       }
-   }
+
+      public void OnPost()
+      {
+         var emailAddress = Request.Form["monthpicker"];
+         // do something with emailAddress
+      }
+    }
 }
