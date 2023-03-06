@@ -1,6 +1,6 @@
 ﻿
 @page "{date}/{name}"
-@model TravelCompensationUI.Pages.NewFolder.OverviewModel
+@model OverviewModel
 
 @{
     ViewData["Title"] = "Overview";
@@ -17,9 +17,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Date)
         </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Compensation.WorkedDaysNumber)
-            </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Compensation.WorkedDaysNumber)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Compensation.Compensation)
         </th>
@@ -30,10 +30,14 @@
         <td>@Model.Name</td>
         <td>@Model.Date</td>
         <td>@Model.Compensation.WorkedDaysNumber</td>
-            <td>@Model.Compensation.Compensation</td>
+        <td>@Model.Compensation.Compensation</td>
     </tr>
     </tbody>
 </table>
+
+<a class="btn btn-success" asp-page-handler="DownloadCsv">
+    Download CSV
+</a>
 
 <div>
     <a asp-page="./Index">Back to List</a>

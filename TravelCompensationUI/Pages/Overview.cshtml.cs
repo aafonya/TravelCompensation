@@ -1,8 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-
-namespace TravelCompensationUI.Pages.NewFolder
+﻿namespace TravelCompensationUI.Pages
 {
+    using System.Globalization;
+    using System.Text;
+
+    using CsvHelper;
+
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
     using NodaTime;
 
     using TravelAllowance;
@@ -11,6 +16,7 @@ namespace TravelCompensationUI.Pages.NewFolder
     public class OverviewModel : PageModel
     {
         private readonly ITravelCompensationService compensationService;
+
         public OverviewModel(ITravelCompensationService compensationService)
         {
             this.compensationService = compensationService;
@@ -37,6 +43,25 @@ namespace TravelCompensationUI.Pages.NewFolder
             }
 
             return Page();
+        }
+
+        public IActionResult OnGetDownloadCsv()
+        {
+            FileContentResult result;
+            using (var memStream = new MemoryStream())
+            {
+                var writer = new StreamWriter(memStream, Encoding.UTF8, 1024, true);
+                var csv = new CsvWriter(writer, CultureInfo.InvariantCulture, true);
+                csv.WriteRecords(new List<TravelCompensationResult>() { Compensation });
+                result = new FileContentResult(memStream.GetBuffer(), "text/csv")
+                {
+                    FileDownloadName = $"TravelAllowanceOverview_{Name}_{Date}.csv"
+                };
+                csv.Dispose();
+                writer.Dispose();
+            }
+
+            return result;
         }
     }
 }
