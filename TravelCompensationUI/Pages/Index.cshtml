@@ -1,5 +1,7 @@
 ﻿@page
-@model TravelCompensationUI.Pages.NewFolder.IndexModel
+@using TravelAllowance.Model
+@model IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
     ViewData["Title"] = "Index";
@@ -7,36 +9,47 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Employee[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Employee[0].Name)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee[0].Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee[0].TravelAttribute.TravelType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee[0].TravelAttribute.TravelDistance)
+        </th>
+    </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Employee) {
-        <tr>
+    @foreach (var x in Model.Employee)
+    {
+        <tr class="border text-center">
+            <td>@x.Name</td>
+
+            @{
+                string travelTypeDisplayName = TravelTypeIdToStringMapper.TryMapTravelTypeIdToString(x.TravelAttribute.TravelType) ?? "Unknown travel type";
+            }
+            <td>@travelTypeDisplayName</td>
+            
+            <td>@x.TravelAttribute.TravelDistance</td>
+
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Name">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Name">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Name">Delete</a>
+                    <form method="post" asp-page-handler="ViewDetailsBtn" asp-route-name=@x.Name>
+                        <input class="form-control"
+                               type="month" 
+                               data-val="true" 
+                               data-val-required="Required"
+                               id="selectedMonth" 
+                               name="selectedMonth" 
+                               value=@DateTime.UtcNow.Month/>
+                    <input type="submit" value="view details" class="btn btn-sm"/>
+                </form>
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>
+

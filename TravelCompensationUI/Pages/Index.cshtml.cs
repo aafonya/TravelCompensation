@@ -1,38 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using TravelAllowance;
-using TravelAllowanceWebApp.Models;
-
-namespace TravelCompensationUI.Pages.NewFolder
+﻿namespace TravelCompensationUI.Pages
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
+    using TravelAllowance;
+
     public class IndexModel : PageModel
     {
+        private LinkGenerator linkGenerator;
         private readonly ITravelCompensationService compensationService;
 
-        public IndexModel(ITravelCompensationService compensationService)
+        public IndexModel(LinkGenerator linkGenerator, ITravelCompensationService compensationService)
         {
+            this.linkGenerator = linkGenerator;
             this.compensationService = compensationService;
         }
 
+        [BindProperty]
         public List<EmployeeRecord> Employee { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            //if (_context.Employee != null)
-            //{
-            //    Employee = await _context.Employee.ToListAsync();
-            //}
             var employeeData = await compensationService.GetAllEmployeeData();
-            if (employeeData != null)
+            Employee = employeeData;
+        }
+
+        public IActionResult OnPostViewDetailsBtn(string name)
+        {
+            var selectedDateString = Request.Form["selectedMonth"].ToString();
+            if (SelectedMonthIsValid(selectedDateString) && SelectedNameIsValid(name))
             {
-                Employee = employeeData;
+                var path = linkGenerator.GetUriByPage(this.HttpContext, "/Overview", values: new { date = selectedDateString, name = name });
+                return Redirect(path);
             }
-            
+
+            return Page();
+        }
+
+        private bool SelectedMonthIsValid(string selectedMonth)
+        {
+            //TODO
+            return true;
+        }
+
+        private bool SelectedNameIsValid(string name)
+        {
+            return !string.IsNullOrEmpty(name);
         }
     }
 }

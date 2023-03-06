@@ -1,0 +1,44 @@
+﻿
+@page "{date}/{name}"
+@model TravelCompensationUI.Pages.NewFolder.OverviewModel
+
+@{
+    ViewData["Title"] = "Overview";
+}
+
+<h1>Overview for @Model.Name of Travel Allowance for month @Model.Date</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Compensation.WorkedDaysNumber)
+            </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Compensation.Compensation)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="border text-center">
+        <td>@Model.Name</td>
+        <td>@Model.Date</td>
+        <td>@Model.Compensation.WorkedDaysNumber</td>
+            <td>@Model.Compensation.Compensation</td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
